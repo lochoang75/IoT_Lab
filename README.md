@@ -29,14 +29,6 @@ p/s: some error may occur because of the different between local file.
 
 ## Running the tests
 
-
-### Break down into end to end tests
-
-
-
-### And coding style tests
-
-
 ## Deployment
 
 ## Built With
