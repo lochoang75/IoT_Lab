@@ -14,7 +14,7 @@ To run all example and assignment we need the following tool:
 5. Some electronic component (like resistor, RGB led,...)
 6. Android studio.
 7. LoRa shiled (for assignment communication)
-
+8. Sensor soil moisture.
 ### Installing
 
 Firstly, you need to know exacly ip of Raspebrry Pi in your local network.
@@ -23,7 +23,7 @@ Then connect to Raspebrry Pi with adb:
 ./adb connect <your raspberry pi ip>
 ```
 
-To run lab example you need to download and import project to visual studio.
+To run lab example you need to download and import project to android studio.
 
 p/s: some error may occur because of the different between local file.
 
@@ -50,4 +50,4 @@ Hoang Van Loc
 ## Acknowledgments
 
 
-o
+
