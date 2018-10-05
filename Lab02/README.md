@@ -17,13 +17,13 @@ to three colors.
 and the blue is 3s.
 Your task in this assignment is to implement an app that receives commands from UART
 and run corresponding exercises above. The commands are detailed as follows:
-a. ‘O’: App starts ready to receive commands.
-b. ‘1’: App runs exercises 1.
-c. ‘2’: App runs exercises 2.
-d. ‘3’: App runs exercises 3.
-e. ‘4’: App runs exercises 4.
-f. ‘5’: App runs exercises 5.
-g. ‘F’: App stops any running
+- ‘O’: App starts ready to receive commands.
+- ‘1’: App runs exercises 1.
+- ‘2’: App runs exercises 2.
+- ‘3’: App runs exercises 3.
+- ‘4’: App runs exercises 4.
+- ‘5’: App runs exercises 5.
+- ‘F’: App stops any running
 ## Pin map ##
 * Pin map for RGB led
 ```
