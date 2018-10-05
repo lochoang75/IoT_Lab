@@ -12,12 +12,14 @@ In Lab 1, we working with RGB led, state machine and PWM.
 5. Blink each LED in different paces. The RED LED is blinking every 0.5s, the green is 2s, and the blue is 3s.
 
 ## Pin map ##
-Markup : * For requirement 1 and 2, we connect pin as below:
+* For requirement 1 and 2, we connect pin as below:
+```
 BCM5 - Red pin
 BCM6 - Green pin
 BCM26 - Blue pin
 VCC - I pin
-		* For requirement 3,4,5 we using PWM pin instead of VCC to change brightness of RGB led.
+```
+* For requirement 3,4,5 we using PWM pin instead of VCC to change brightness of RGB led.
 ## Result ##
 We were demo in laboratory.
 
