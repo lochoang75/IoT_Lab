@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+        <title></title>
+</head>
+<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			   <a class="navbar-brand" href="#">Navbar</a>
+			   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				      <span class="navbar-toggler-icon"></span>
+			     </button>
+	     <div class="collapse navbar-collapse" id="navbarNav">
+	    <ul class="navbar-nav">
+         <li class="nav-item active">
+         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+		        <a class="nav-link" href="#">Features</a>
+		        </li>
+		      <li class="nav-item">
+			          <a class="nav-link" href="#">Pricing</a>
+			      </li>
+		      <li class="nav-item">
+			        <a class="nav-link disabled" href="#">Disabled</a>
+		        </li>
+	    </ul>
+  </div>
+		</nav>  
+
+		<div class="container-fluid no-gutters">
+				<div class="row">
+						<div class=" col-xl-2 col-lg-3 col-md-4 col-sm-12 col-12">
+							<form>
+								<div class="form-group  mx-sm-5 mt-3">
+									<select class="form-control" id="exampleFormControlSelect1" placeholder="Gateway">
+									<?php
+									// List of gateway in database
+									?>			   
+									</select>
+								</div>
+								<div class="form-group  mx-sm-5 mt-3">
+									<select class="form-control" id="exampleFormControlSelect1" placeholder="Sensor ID">
+									<?php
+									// List of sesor of datbase, need js to find base on gateway 
+									?>			   
+									</select>
+								</div>
+								<div class="form-group  mx-sm-5 mt-3">
+									<input class="form-control" id="exampleFormControlSelect1" placeholder="Start day">
+									</input>
+								</div>
+								<div class="form-group  mx-sm-5 mt-3">
+									<input class="form-control" id="exampleFormControlSelect1" placeholder="End day">
+									</input>
+								</div>
+								<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
+									<button type="button" class="btn btn-success">
+											Find
+									</button>
+								</div>
+								<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
+									<button type="button" class="btn btn-success">
+										Dynamic	
+									</button>
+								</div>
+<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
+									<button type="button" class="btn btn-success">
+										Newest data
+									</button>
+								</div>
+						</div>
+						<div class=" col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12">
+						</div>
+				</div>
+				<div class="container-fluid no-gutters">
+						<div class="row">
+							<div class="mt-3 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-12">
+								<p> Weather </p>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-9 col-sm-8 col-12 row">
+							 	<div class=" mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12" id="lasttime">
+										Time 
+										</div>
+								<div class=" media col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+										<img class="align-self-center mr-3" src="./images/temperature.png" alt="temperature" width="40" height="40">
+										<div class="media-body mt-3" id="curTemp">
+											Temp
+										</div>
+
+								</div>
+								<div class=" media col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+										<img class="align-self-center mr-3" src="./images/humidity.png" alt="humidity" width="40" height="40">
+										<div class="media-body mt-3" id="curHumid">
+											Humid
+										</div>
+								</div>
+								<div class=" mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12" id="weather">
+										<p> Weather like </p>
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="container-fluid no-gutters">
+						<div class="row">
+							<div class="mt-3 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-12">
+								<p> Forecast </p>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-9 col-sm-8 col-12 row">
+								 <div class=" mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+										 <div class="Time"> 
+												 23 : 00
+										 </div>
+										 <div class="Weather">
+												 Clouds
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/temperature.png" alt="temperature" width="40" height="40">
+												 <div class="media-body mt-3 Temp">
+												 </div>
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/humidity.png" alt="humidity" width="40" height="40">
+												 <div class="media-body mt-3 Humid">
+												 </div>
+
+										 </div>
+								</div>
+								<div class="mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+										<div class="Time">
+												 23:00
+										</div>
+										<div class="Weather">
+												Clouds
+										</div>
+										<div class="media">
+												<img class="align-self-center mr-2" src="./images/temperature.png" alt="temperature" width="40" height="40">
+												<div class="media-body mt-3 Temp">
+												</div>
+										</div>
+										<div class="media">
+												<img class="align-self-center mr-2"
+				 src="./images/humidity.png" alt="humidity" width="40" height="40">
+												<div class="media-body mt-3 Humid">
+												</div>
+										 </div>
+								</div>
+
+								<div class=" mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+										 <div class="Time"> 
+												 23 : 00
+										 </div>
+										 <div class="Weather">
+												 Clouds
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/temperature.png" alt="temperature" width="40" height="40">
+												 <div class="media-body mt-3 Temp">
+												 </div>
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/humidity.png" alt="humidity" width="40" height="40">
+												 <div class="media-body mt-3 Humid">
+												 </div>
+
+										 </div>
+
+								</div>
+								<div class=" mt-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12" id="weather">
+										 <div class="Time"> 
+												 23 : 00
+										 </div>
+										 <div class="Weather">
+												 Clouds
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/temperature.png" alt="temperature" width="40" height="40">
+												 <div class="media-body mt-3 Temp">
+												 </div>
+										 </div>
+										 <div class="media">
+												 <img class="align-self-center mr-2"src="./images/humidity.png" alt="humidity" width="40" height="40">
+												 <div class="media-body mt-3 Humid">
+												 </div>
+
+										 </div>
+								</div>
+							</div>
+						</div>
+				</div>
+		</div>
+<script src="./bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+<script src="./bootstrap/js/popper.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script>
+function httpGetAsync(url, callback) 
+{
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		 // check status of request
+		 if (this.readyState == 4 && this.status == 200) {
+				 // Parse json to object
+		   		 var myObj = JSON.parse(this.responseText);
+				 callback(myObj);
+		 }
+
+	} 
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+
+};
+
+function forecast(myObj) {
+		 // Print json data
+		 console.log(myObj);
+
+		 // Create list of forecast
+		 var forecast = [];
+
+		 // j for loop to end of list and i to count 10 unit to add to forecast
+		 var i = 0;
+		 var j = 0;
+
+		 // Get current timestamp , div 1000 to get in seccond
+		 var current_time = Date.now()/1000;
+
+		 while (i < 4 && j < 40){
+				 if (current_time < myObj.list[j].dt) {
+						 var temp = parseInt(myObj.list[j].main.temp) - 273;
+						 var humid = parseInt(myObj.list[j].main.humidity);
+						 // create object and add data 
+						  var data = {time: myObj.list[j].dt, temp: temp, humidity: humid, weather: myObj.list[j].weather[0].main};
+						 // append data to list
+						 forecast[i] = data;
+						 i++;
+				 }
+				 j++;
+		 }	
+		 // Check forecast list
+		 console.log(forecast);
+
+		 for (var i = 0; i < 4; i++) 
+		 {
+				 document.getElementsByClassName("Temp")[i].innerHTML = forecast[i].temp;
+				 document.getElementsByClassName("Humid")[i].innerHTML = forecast[i].humidity;
+				 document.getElementsByClassName("Weather")[i].innerHTML = forecast[i].weather;
+				 var timestamp = parseInt(forecast[i].time);
+		 		 var date = new Date(timestamp*1000);
+		 		 var hours = date.getHours();
+		 		 var minutes = date.getMinutes();
+		 		 // Padding zero
+		 		 if ((minutes / 10) < 1)
+		 		 {
+						 minutes = "0" + minutes;
+		 		 }
+
+		 		 if ((hours / 10) < 1)
+		 		 {
+						 hours = "0" + hours;
+		 		 }
+
+				 document.getElementsByClassName("Time")[i].innerHTML = hours + ":" + minutes;
+		 }
+
+}
+
+function Information(Obj) {
+		 // print json data
+		 console.log(Obj);
+
+		 // replace data in html
+		 // get latest update
+		 var timestamp = parseInt(Obj.dt);
+		 var date = new Date(timestamp*1000);
+		 var hours = date.getHours();
+		 var minutes = date.getMinutes();
+		 
+		 // get temp, humidity, weather
+		 var temp = parseInt(Obj.main.temp) - 273;
+		 var humid = Obj.main.humidity;
+		 var weather = Obj.weather[0].main;
+		 
+		 // Padding zero
+		 if ((minutes / 10) < 1)
+		 {
+				 minutes = "0" + minutes;
+		 }
+
+		 if ((hours / 10) < 1)
+		 {
+				 hours = "0" + hours;
+		 }
+
+		 // Replace in html
+		 document.getElementById("lasttime").innerHTML = hours +" : "+ minutes; 
+
+		 document.getElementById("curTemp").innerHTML = temp;
+
+		 document.getElementById("curHumid").innerHTML = humid;
+
+		 document.getElementById("weather").innerHTML = weather;
+		 		 
+}
+httpGetAsync("http://api.openweathermap.org/data/2.5/forecast?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4",forecast);
+httpGetAsync("http://api.openweathermap.org/data/2.5/weather?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4", Information);
+</script>
+</body>
+</html>
