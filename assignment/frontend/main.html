@@ -8,26 +8,28 @@
 </head>
 <body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			   <a class="navbar-brand" href="#">Navbar</a>
-			   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				      <span class="navbar-toggler-icon"></span>
-			     </button>
-	     <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
-         <li class="nav-item active">
-         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-		        <a class="nav-link" href="#">Features</a>
-		        </li>
-		      <li class="nav-item">
-			          <a class="nav-link" href="#">Pricing</a>
-			      </li>
-		      <li class="nav-item">
-			        <a class="nav-link disabled" href="#">Disabled</a>
-		        </li>
-	    </ul>
-  </div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			     <span class="navbar-toggler-icon"></span>
+		    </button>
+	     	<div class="collapse navbar-collapse" id="navbarNav">
+	    		<ul class="navbar-nav">
+        	 		 <li class="nav-item active">
+         	 			 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      		 		 </li>
+      		 		 <li class="nav-item">
+		    	 		 <a class="nav-link" href="#">Features</a>
+		     		 </li>
+		     		 <li class="nav-item">
+						 <a class="nav-link" href="#">Pricing</a>
+			 		 </li>
+		     		 <li class="nav-item">
+						 <a class="nav-link disabled" href="#">Disabled</a>
+		     		 </li>
+	     		</ul>
+  			</div>
+		 	<a class="navbar-brand" href="#">
+				 <img src="./images/user.png" width="30" height="30" alt="userIcon">
+			</a>
 		</nav>  
 
 		<div class="container-fluid no-gutters">
@@ -36,9 +38,6 @@
 							<form>
 								<div class="form-group  mx-sm-5 mt-3">
 									<select class="form-control" id="exampleFormControlSelect1" placeholder="Gateway">
-									<?php
-									// List of gateway in database
-									?>			   
 									</select>
 								</div>
 								<div class="form-group  mx-sm-5 mt-3">
@@ -72,7 +71,7 @@
 									</button>
 								</div>
 						</div>
-						<div class=" col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12">
+						<div class=" col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12" id="chartContainer" style="height: 400px">
 						</div>
 				</div>
 				<div class="container-fluid no-gutters">
@@ -194,6 +193,7 @@
 <script src="./bootstrap/js/jquery-3.3.1.slim.min.js"></script>
 <script src="./bootstrap/js/popper.min.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
 function httpGetAsync(url, callback) 
 {
@@ -305,6 +305,119 @@ function Information(Obj) {
 }
 httpGetAsync("http://api.openweathermap.org/data/2.5/forecast?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4",forecast);
 httpGetAsync("http://api.openweathermap.org/data/2.5/weather?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4", Information);
+
+// Script for chart 
+window.onload = function () {
+
+		var chart = new CanvasJS.Chart("chartContainer", {
+					animationEnabled: true,
+						exportEnabled: true,
+							title:{
+									text: "Gold Medals Won in Olympics"             
+							}, 
+							axisY:{
+									title: "Number of Medals"
+							},
+							toolTip: {
+									shared: true
+																},
+							legend:{
+									cursor:"pointer",
+									itemclick: toggleDataSeries
+							},
+							data: [{        
+									type: "spline",  
+									name: "US",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 44 },     
+												{ label:"Sydney 2000", y: 37 },     
+												{ label: "Athens 2004", y: 36 },     
+												{ label: "Beijing 2008", y: 36 },     
+												{ label: "London 2012", y: 46 },
+												{ label: "Rio 2016", y: 46 }
+												]
+									}, 
+									{        
+									type: "spline",
+									name: "China",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 16 },     
+												{ label:"Sydney 2000", y: 28 },     
+												{ label: "Athens 2004", y: 32 },     
+												{ label: "Beijing 2008", y: 48 },     
+												{ label: "London 2012", y: 38 },
+												{ label: "Rio 2016", y: 26 }
+												]
+									},
+									{        
+									type: "spline",  
+									name: "Britain",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 1 },     
+												{ label:"Sydney 2000", y: 11 },     
+												{ label: "Athens 2004", y: 9 },     
+												{ label: "Beijing 2008", y: 19 },     
+												{ label: "London 2012", y: 29 },
+												{ label: "Rio 2016", y: 27 }
+												]
+									},
+									{       
+									type: "spline",  
+									name: "Russia",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 26 },     
+												{ label:"Sydney 2000", y: 32 },     
+												{ label: "Athens 2004", y: 28 },     
+												{ label: "Beijing 2008", y: 22 },     
+												{ label: "London 2012", y: 20 },
+												{ label: "Rio 2016", y: 19 }
+												]
+									},
+									{        
+									type: "spline",  
+									name: "S Korea",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 7 },     
+												{ label:"Sydney 2000", y: 8 },     
+												{ label: "Athens 2004", y: 9 },     
+												{ label: "Beijing 2008", y: 13 },     
+												{ label: "London 2012", y: 13 },
+												{ label: "Rio 2016", y: 9 }
+												]
+									},  
+									{        
+									type: "spline",  
+									name: "Germany",        
+									showInLegend: true,
+									dataPoints: [
+												{ label: "Atlanta 1996" , y: 20 },     
+												{ label:"Sydney 2000", y: 13 },     
+												{ label: "Athens 2004", y: 13 },     
+												{ label: "Beijing 2008", y: 16 },     
+												{ label: "London 2012", y: 11 },
+												{ label: "Rio 2016", y: 17 }
+												]
+									}]
+		});
+
+		chart.render();
+
+		function toggleDataSeries(e) {
+					if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+									e.dataSeries.visible = false;
+										}
+						else {
+										e.dataSeries.visible = true;            
+											}
+							chart.render();
+		}
+
+}
 </script>
 </body>
 </html>
