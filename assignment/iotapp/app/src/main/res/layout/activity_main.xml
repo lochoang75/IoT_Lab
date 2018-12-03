@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="300px"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+        <TextView
+            android:gravity="center"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:background="@drawable/logo"
+            android:text="S"
+            android:textSize="55dp"
+            android:textColor="#ffffff"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <EditText
+            android:layout_width="350px"
+            android:layout_height="75px"
+            android:gravity="center_vertical"
+            android:hint="Username"
+            android:paddingLeft="50px"
+            android:background="#5735B7" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="25px">
+        <EditText
+            android:inputType="textPassword"
+            android:layout_width="350px"
+            android:layout_height="75px"
+            android:gravity="center_vertical"
+            android:hint="Password"
+            android:maxLines="1"
+            android:paddingLeft="50px"
+            android:background="#5735B7"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="80px">
+        <Button
+            android:id="@+id/_sign_in"
+            android:layout_width="350px"
+            android:layout_height="70px"
+            android:background="#F138A7"
+            android:text="Sign in"
+            android:textColor="#ffffff"
+            android:textSize="22dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="40px">
+        <TextView
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up?"
+            android:textSize="17dp"
+            android:textColor="#ffffff"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_refresh"
+    tools:context=".HomeActivity">
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10px">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/node_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="23px"
+                android:text="Node ID: "
+                android:textSize="20dp"
+                android:textColor="#BB6BD9"/>
+            <TextView
+                android:id="@+id/_node_id"
+                android:layout_width="200px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/node_id"
+                android:hint="101"
+                android:textSize="20dp"
+                android:textColor="#BB6BD9"/>
+            <ListView
+                android:id="@+id/_l_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="50px"
+                android:layout_marginRight="0dp"></ListView>
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
