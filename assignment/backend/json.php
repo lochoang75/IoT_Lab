@@ -1,8 +1,8 @@
 <?php
 
-header('Content-Type: aplication/json');
+//header('Content-Type: aplication/json');
 
-$host = "127.0.0.1";
+$host = "localhost";
 $dbnam = "test";
 $password = "";
 $username = "root";
@@ -16,15 +16,34 @@ if (mysqli_connect_errno($con))
 {
 	$data_point = array();
 
-	$sql = "SELECT * FROM HeatHeat";
+	$sql = "SELECT * FROM Data";
 
 	$result = mysqli_query($con,$sql);
 
 	while ($row = mysqli_fetch_array($result))
 	{
-		$point = array("label" => $row["ID"], "y" => $row["Value"], "Time" => $row["Time"]);
+		$GatewayID = (string) $row["GatewayID"];
+		$SensorID = (string)$row["ID"];
+		$point = array("value" => $row["Value"], "time" => $row["Time"]);
 
-		array_push($data_point, $point);
+		/* Create Gatewaylist*/
+		if (!isset($data_point["Gateway"]))
+		{
+			$data_point["Gateway"] = array();
+		}
+
+		/* Create sensor ID list*/
+		if (!isset($data_point["Gateway"][$GatewayID]))
+		{
+			$data_point["Gateway"][$GatewayID] = array();
+		}
+
+		if (!isset($data_point["Gateway"][$GatewayID][$SensorID])) 
+		{
+			$data_point["Gateway"][$GatewayID][$SensorID] = array();
+		}
+			
+		array_push($data_point["Gateway"][$GatewayID][$SensorID], $point);
 	}
 
 	echo json_encode($data_point, JSON_NUMERIC_CHECK);
