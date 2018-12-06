@@ -1,6 +1,120 @@
 <?php
 
-//header('Content-Type: aplication/json');
+header('Content-Type: aplication/json');
+
+/* Record for humidnity and time*/
+class Record {
+	/* Attribute */
+	var $time;
+	var $humidnity;
+
+	/* Constructor */
+	function __construct($time, $value)
+	{
+		$this->time = $time;
+		$this->humidnity = $value;
+	}
+
+	/* Method */
+	function setData($time, $value)
+	{
+		$this->time = $time;
+		$this->humidnity = $value;
+	}
+
+	function getTime()
+	{
+		return $this->time;
+	}
+
+	function getHumid()
+	{
+		return $this->humidnity;
+	}
+
+}
+
+/* Sensor class for each sensor in gateway */
+class Sensor {
+	/* Sensor attribute */
+	/* NodeID: ID of Sensor node */
+	/* NodeData: All record about sensor */
+	var	$NodeID;
+	var $NodeData;
+
+	/* Constructor */
+	function __construct($ID, $record)
+	{
+		$this->NodeID = $ID;
+		$this->NodeData = array();
+		$this->pushRecord($record);
+	}
+
+	/* Sensor method */
+	/* Push record to data */
+	function pushRecord ($record)
+	{
+		array_push($this->NodeData,$record);
+	}
+
+	/* Set ID for Node */
+	function setIdNode($id)
+	{
+		$this->NodeID = $id;
+	}
+
+	/* get ID from Node */
+	function getIdNode()
+	{
+		return $this->NodeID;
+	}
+}
+
+/* Gateway class */
+class Gateway {
+	/* Atribute */
+	/* GatewayID: ID of gateway */
+	/* GatewayData: Data of all sensor node in gateway */
+	var $GatewayID;
+	var $GatewayData;
+
+	/* Constructor */
+	function __construct($ID, $sensor)
+	{
+		$this->GatewayID = $ID;
+		$this->GatewayData = array();
+		$this->pushSensor($sensor);
+	}
+
+	/* Method */
+	/* Push sensor data to Gateway */
+	function pushSensor($sensor)
+	{
+		array_push($this->GatewayData, $sensor);
+	}
+
+	/* Get Gateway ID */
+   function getGatewayID()	
+   {
+		return $this->GatewayID;
+   }
+
+	/* Set Gateway ID */
+	function setGatewayID($gatewayID)
+	{
+		$this->GatewayID = $gatewayID;
+	}
+
+}
+
+class json {
+	var $Gateways;
+
+	function __construct($gatewaylist)
+	{
+		$this->Gateways = $gatewaylist;
+	}
+}
 
 $host = "localhost";
 $dbnam = "test";
@@ -14,7 +128,7 @@ if (mysqli_connect_errno($con))
 	echo "Failed to connect to Database: ".$mysqli_connect_error();
 } else
 {
-	$data_point = array();
+	$gatewaylist = [];
 
 	$sql = "SELECT * FROM Data";
 
@@ -22,31 +136,57 @@ if (mysqli_connect_errno($con))
 
 	while ($row = mysqli_fetch_array($result))
 	{
-		$GatewayID = (string) $row["GatewayID"];
-		$SensorID = (string)$row["ID"];
-		$point = array("value" => $row["Value"], "time" => $row["Time"]);
+		$GatewayID = $row["GatewayID"];
+		$SensorID = $row["ID"];
+		$Time = $row["Time"];
+		$Humid = $row["Value"];
+
+		$Record = new Record($Time, $Humid);
 
 		/* Create Gatewaylist*/
-		if (!isset($data_point["Gateway"]))
+		if (empty($gatewaylist))
 		{
-			$data_point["Gateway"] = array();
+			$Sensor = new Sensor($SensorID, $Record);
+			$Gateway = new Gateway($GatewayID, $Sensor);
+			array_push($gatewaylist, $Gateway);
+			continue;
 		}
 
-		/* Create sensor ID list*/
-		if (!isset($data_point["Gateway"][$GatewayID]))
+		$addSuccess = false;
+
+		foreach ($gatewaylist as $gateway)
 		{
-			$data_point["Gateway"][$GatewayID] = array();
+			if ($gateway->getGatewayID() == $GatewayID)
+			{
+				foreach ($gateway->GatewayData as $sensor)
+				{
+					if ($sensor->getIdNode() == $SensorID)
+					{
+						$sensor->pushRecord($Record);
+						$addSuccess = true;
+					}
+				}
+				
+				if ($addSuccess == false)
+				{
+					$sensor = new Sensor($SensorID, $Record);
+					$gateway->pushSensor($sensor);
+					$addSuccess = true;
+				}
+			}
+
+		}
+		if ($addSuccess == false)
+		{
+			$Sensor = new Sensor($SensorID, $Record);
+			$Gateway = new Gateway($GatewayID, $Sensor);
+			array_push($gatewaylist, $Gateway);
 		}
 
-		if (!isset($data_point["Gateway"][$GatewayID][$SensorID])) 
-		{
-			$data_point["Gateway"][$GatewayID][$SensorID] = array();
-		}
-			
-		array_push($data_point["Gateway"][$GatewayID][$SensorID], $point);
 	}
+	 $json = new json($gatewaylist);
 
-	echo json_encode($data_point, JSON_NUMERIC_CHECK);
+	echo json_encode($json, JSON_NUMERIC_CHECK);
 
 }
 
