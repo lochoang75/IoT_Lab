@@ -108,4 +108,10 @@ function Information(Obj) {
 httpGetAsync("http://api.openweathermap.org/data/2.5/forecast?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4",forecast);
 httpGetAsync("http://api.openweathermap.org/data/2.5/weather?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4", Information);
 
+setInterval(function(){
+	httpGetAsync("http://api.openweathermap.org/data/2.5/forecast?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4",forecast);
+	httpGetAsync("http://api.openweathermap.org/data/2.5/weather?q=Thanh%20pho%20Ho%20Chi%20Minh&APPID=677bdf261808ee261bd7c63b67528cc4", Information);
+}, 3600000
+)
+
 

@@ -35,58 +35,51 @@
 
     <div class="container-fluid no-gutters">
 				<div class="row">
-						<div class=" col-xl-2 col-lg-3 col-md-4 col-sm-12 col-12">
+						<div class=" col-xl-2 col-lg-3 col-md-3 col-sm-12 col-12">
 							<form>
-								<div class="form-group  mx-sm-5 mt-3">
-									<select class="form-control" id="exampleFormControlSelect1" placeholder="Gateway">
-									<?php
-									// List of gateway in database
-									?>			   
+								<div class="form-group  mx-sm-3 mt-3">
+									<select class="form-control" id="GatewayID" placeholder="Gateway">
 									</select>
 								</div>
-								<div class="form-group  mx-sm-5 mt-3">
-									<select class="form-control" id="exampleFormControlSelect1" placeholder="Sensor ID">
-									<?php
-									// List of sesor of datbase, need js to find base on gateway 
-									?>			   
-									</select>
+								<div class="form-group mx-sm-3 mx-xl-5 mx-lg-5 mx-3">
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="1"> Sensor 1</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="2"> Sensor 2</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="3"> Sensor 3</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="4"> Sensor 4</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="5"> Sensor 5<label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="6"> Sensor 6</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="7"> Sensor 7</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="8"> Sensor 8</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="9"> Sensor 9</label>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox" class="sensor" value="10"> Sensor 10<label>
+									</div>
 								</div>
-								<div class="form-group  mx-sm-5 mt-3">
-									<input class="form-control" id="exampleFormControlSelect1" placeholder="Start day">
-									</input>
-								</div>
-								<div class="form-group  mx-sm-5 mt-3">
-									<input class="form-control" id="exampleFormControlSelect1" placeholder="End day">
-									</input>
-								</div>
-								<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
-									<button type="button" class="btn btn-success">
-											Find
-									</button>
-								</div>
-								<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
-									<button type="button" class="btn btn-success">
-										Dynamic	
-									</button>
-								</div>
-<div class="form-group  mx-sm-5 mt-3  d-flex justify-content-center">
-									<button type="button" class="btn btn-success">
-										Newest data
-									</button>
-								</div>
+						</form>
 						</div>
-						<div class=" col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12" id="chartContainer">
+						<div class=" col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12" id="chartContainer" style="height: 420px; width= 100%">
 						</div>
 				</div>
+	</div>
 	
-<div class="container-fluid no-gutters">
-        <div class="row no-gutters">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            </div>
-        </div> 
-    </div>
     <div class="container-fluid no-gutters">
         <div class="container-fluid no-gutters">
 	    	<div class="row">
@@ -196,125 +189,12 @@
             </div>
         </div>
     </div>
-</div>
 <script src="./bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+<script src="./js/jquery-3.3.1.min.js";
 <script src="./bootstrap/js/popper.min.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
 <script src="./js/canvasjs.min.js"></script>
 <script src="./js/weatherForecast.js"></script>
-<script>
-// Script for chart 
-window.onload = function () {
-
-		var chart = new CanvasJS.Chart("chartContainer", {
-					animationEnabled: true,
-						exportEnabled: true,
-							title:{
-									text: "This is a chart"             
-							}, 
-							axisY:{
-									title: "Value"
-							},
-							toolTip: {
-									shared: true
-																},
-							legend:{
-									cursor:"pointer",
-									itemclick: toggleDataSeries
-							},
-							data: [{        
-									type: "spline",  
-									name: "US",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 44 },     
-												{ label:"Sydney 2000", y: 37 },     
-												{ label: "Athens 2004", y: 36 },     
-												{ label: "Beijing 2008", y: 36 },     
-												{ label: "London 2012", y: 46 },
-												{ label: "Rio 2016", y: 46 }
-												]
-									}, 
-									{        
-									type: "spline",
-									name: "China",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 16 },     
-												{ label:"Sydney 2000", y: 28 },     
-												{ label: "Athens 2004", y: 32 },     
-												{ label: "Beijing 2008", y: 48 },     
-												{ label: "London 2012", y: 38 },
-												{ label: "Rio 2016", y: 26 }
-												]
-									},
-									{        
-									type: "spline",  
-									name: "Britain",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 1 },     
-												{ label:"Sydney 2000", y: 11 },     
-												{ label: "Athens 2004", y: 9 },     
-												{ label: "Beijing 2008", y: 19 },     
-												{ label: "London 2012", y: 29 },
-												{ label: "Rio 2016", y: 27 }
-												]
-									},
-									{       
-									type: "spline",  
-									name: "Russia",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 26 },     
-												{ label:"Sydney 2000", y: 32 },     
-												{ label: "Athens 2004", y: 28 },     
-												{ label: "Beijing 2008", y: 22 },     
-												{ label: "London 2012", y: 20 },
-												{ label: "Rio 2016", y: 19 }
-												]
-									},
-									{        
-									type: "spline",  
-									name: "S Korea",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 7 },     
-												{ label:"Sydney 2000", y: 8 },     
-												{ label: "Athens 2004", y: 9 },     
-												{ label: "Beijing 2008", y: 13 },     
-												{ label: "London 2012", y: 13 },
-												{ label: "Rio 2016", y: 9 }
-												]
-									},  
-									{        
-									type: "spline",  
-									name: "Germany",        
-									showInLegend: true,
-									dataPoints: [
-												{ label: "Atlanta 1996" , y: 20 },     
-												{ label:"Sydney 2000", y: 13 },     
-												{ label: "Athens 2004", y: 13 },     
-												{ label: "Beijing 2008", y: 16 },     
-												{ label: "London 2012", y: 11 },
-												{ label: "Rio 2016", y: 17 }
-												]
-									}]
-		});
-
-		chart.render();
-
-		function toggleDataSeries(e) {
-					if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-									e.dataSeries.visible = false;
-										}
-						else {
-										e.dataSeries.visible = true;            
-											}
-							chart.render();
-		}
-
-}
-</script>
+<script src="./js/js.js"></script>
 </body>
 </html>
