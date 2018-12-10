@@ -1,4 +1,4 @@
-package com.example.nxnam.iotapp;
+package com.example.nxnam.iotapp.Login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.nxnam.iotapp.HomeActivity;
+import com.example.nxnam.iotapp.R;
 
 public class MainActivity extends Activity {
 
