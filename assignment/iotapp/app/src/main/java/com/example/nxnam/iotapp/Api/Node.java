@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Node {
-    @SerializedName("IdNode")
+    @SerializedName("NodeID")
     private int nodeId;
-    @SerializedName("data")
+    @SerializedName("NodeData")
     ArrayList<Data> data;
 
     public int getNodeId() {

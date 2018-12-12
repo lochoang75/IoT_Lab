@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController implements Callback<ApiData> {
 
-    public static final String BASE_URL = "https://api.myjson.com/bins/";
+    public static final String BASE_URL = "http://10.20.83.74/backend/";
     public ApiListener apiListener;
 
     public interface ApiListener {

@@ -1,9 +1,12 @@
 package com.example.nxnam.iotapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,8 @@ import com.example.nxnam.iotapp.Api.ApiData;
 import com.example.nxnam.iotapp.Api.Data;
 import com.example.nxnam.iotapp.Api.Gateway;
 import com.example.nxnam.iotapp.Api.Node;
+import com.example.nxnam.iotapp.Charts.DistributionChartActivity;
+import com.example.nxnam.iotapp.Charts.LineChartActivity;
 import com.example.nxnam.iotapp.CustomAdapter.CustomAdapter;
 import com.example.nxnam.iotapp.CustomAdapter.IdAdapter;
 import com.example.nxnam.iotapp.IdSelection.IdSelection;
@@ -29,8 +34,12 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final int UNDEFINED_ID = -1;
+    public static final String Home_GatewayID = "HomeActivity_GatewayID";
+    public static final String Home_NodeID = "HomeActivity_NodeID";
     private int nodeId = UNDEFINED_ID;
     private int gatewayId = UNDEFINED_ID;
+
+    private ActionBar actionBar;
 
     private TextView gatewayIdTextView, nodeIdTextView;
     //private Spinner gatewaySpinner, nodeSpinner;
@@ -50,18 +59,14 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#9040E0")));
 
         gatewayIds = new ArrayList<Integer>();
         gatewayIdAdapter = new IdAdapter(this,R.layout.id_select_activity,gatewayIds);
-        //gatewaySpinner = findViewById(R.id._gateway_spin);
-        //gatewayIdAdapter = new ArrayAdapter<Integer>(this, R.layout.support_simple_spinner_dropdown_item,gatewayIds);
-        //gatewayIdAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         nodeIds = new ArrayList<Integer>();
         nodeIdAdapter = new IdAdapter(this,R.layout.id_select_activity, nodeIds);
-        //nodeSpinner = findViewById(R.id._node_id_spin);
-        //nodeIdAdapter = new ArrayAdapter<Integer>(this, R.layout.support_simple_spinner_dropdown_item,nodeIds);
-        //nodeIdAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         gatewayIdTextView = findViewById(R.id._gateway_id);
         gatewayIdTextView.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                 gatewayIdTextView.setText("Select a gateway ID");
                 nodeIdTextView.setText(null);
                 Toast.makeText(HomeActivity.this, "Select gateway id",Toast.LENGTH_LONG).show();
-                displayData();
+                getData();
             }
         });
 
@@ -87,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                 }
                 else {
                     nodeIdTextView.setText("Select a node ID");
-                    displayData();
+                    getData();
                 }
             }
         });
@@ -102,11 +107,11 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                     gatewayIdTextView.setText(String.valueOf(gatewayId));
                     nodeId = UNDEFINED_ID;
                     nodeIdTextView.setText("Slect an node ID");
-                    displayData();
+                    getData();
                 } else if (nodeId == UNDEFINED_ID) {
                     nodeId = (int) parent.getItemAtPosition(position);
                     nodeIdTextView.setText(String.valueOf(nodeId));
-                    displayData();
+                    getData();
                 }
             }
         });
@@ -115,39 +120,12 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         apiController = new ApiController();
 
-        /*gatewaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                gatewayId = gatewaySpinner.getSelectedItemPosition();
-                System.out.print("[mDEBUG] HomeActivity onGateway " + gatewayId + "\n");
-                displayData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
-        /*nodeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                nodeId = nodeSpinner.getSelectedItemPosition();
-                displayData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
 
-    private void displayData() {
+    private void getData() {
         apiController.apiGetData().setApiListener(new ApiController.ApiListener() {
             @Override
             public void onGetData(ApiData data) {
@@ -171,21 +149,20 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                                     nodeIds.add(nodes.get(j).getNodeId());
                                     if (nodes.get(j).getNodeId() == nodeId) {
 
-                                        for (int k = 0; k < nodes.get(j).getData().size(); k++){
-
-                                            dataArrayList.add(nodes.get(j).getData().get(k));
-                                            System.out.print("[mDEBUG] " + nodes.get(j).getData().get(k).getTime() + " "
-                                                + nodes.get(j).getData().get(k).getHumid() + "\n");
-                                        }
-                                        customAdapter.notifyDataSetChanged();
-                                        listView.setAdapter(customAdapter);
-                                        System.out.print("[mDEBUG]: dataArrayList size " + dataArrayList.size() + "\n");
+                                        ArrayList<Data> dataList = new ArrayList<Data>();
+                                        dataList = nodes.get(j).getData();
+                                        displayData(dataList);
+//                                        for (int k = 0; k < nodes.get(j).getData().size(); k++){
+//
+//                                            dataArrayList.add(nodes.get(j).getData().get(k));
+//                                        }
+                                        //customAdapter.notifyDataSetChanged();
+                                        //listView.setAdapter(customAdapter);
                                     }
                                 }
                                 nodeIdAdapter.notifyDataSetChanged();
                                 if (nodeId == UNDEFINED_ID)
                                     listView.setAdapter(nodeIdAdapter);
-                                //nodeSpinner.setAdapter(nodeIdAdapter);
                                 System.out.print("[mDEBUG]: node ids size " + nodeIds.size() + "\n");
                             }
                         }
@@ -204,6 +181,18 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
     }
+
+    private void displayData(ArrayList<Data> dataList) {
+        int offset = dataList.size() > 20 ? dataList.size() - 20 : 0;
+        int size = dataList.size() > 20 ? 20 : dataList.size();
+        dataArrayList.clear();
+        for (int i = size - 1 ; i >= 0; i--){
+            dataArrayList.add(dataList.get(i + offset));
+        }
+        customAdapter.notifyDataSetChanged();
+        listView.setAdapter(customAdapter);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -215,13 +204,29 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         switch (id) {
             case R.id._linechart:
-                Toast.makeText(this,"Line Chart",Toast.LENGTH_SHORT).show();
+                if (nodeId != UNDEFINED_ID) {
+                    Intent linechartIntent = new Intent(HomeActivity.this, LineChartActivity.class);
+                    linechartIntent.putExtra(Home_GatewayID, gatewayId);
+                    linechartIntent.putExtra(Home_NodeID, nodeId);
+                    startActivity(linechartIntent);
+                }
+                else {
+                    Toast.makeText(this, "Select IDs first", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id._home:
                 Toast.makeText(this,"Home",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id._districhart:
-                Toast.makeText(this,"Distribution Chart",Toast.LENGTH_SHORT).show();
+                if (nodeId != UNDEFINED_ID) {
+                    Intent distributionChartIntent = new Intent(HomeActivity.this, DistributionChartActivity.class);
+                    distributionChartIntent.putExtra(HomeActivity.Home_GatewayID, gatewayId);
+                    distributionChartIntent.putExtra(HomeActivity.Home_NodeID, nodeId);
+                    startActivity(distributionChartIntent);
+                }
+                else {
+                    Toast.makeText(this, "Select IDs first", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id._about:
                 Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
@@ -237,7 +242,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        displayData();
+        getData();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

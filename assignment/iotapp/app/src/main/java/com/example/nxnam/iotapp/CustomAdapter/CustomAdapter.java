@@ -55,8 +55,8 @@ public class CustomAdapter extends ArrayAdapter {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         Date mDate = new Date(211);
-        System.out.printf("[mDEBUG]: time %d %s %d\n", data.getTime(), dateFormat.format(new Date(211)), mDate.getMinutes());
-        viewHolder.txtDate.setText(dateFormat.format(new Date(data.getTime())));
+        //System.out.printf("[mDEBUG]: time %d %s %d\n", data.getTime(), dateFormat.format(new Date(211)), mDate.getMinutes());
+        viewHolder.txtDate.setText(dateFormat.format(new Date(data.getTime() * 1000)));
 
         return convertView;
     }

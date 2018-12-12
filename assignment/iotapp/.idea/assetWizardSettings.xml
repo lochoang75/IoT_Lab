@@ -14,9 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_baseline_home_24px" />
+                            <entry key="height" value="32" />
+                            <entry key="outputName" value="ic_baseline_https_24px" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../Mobileapp/icon/baseline-home-24px.svg" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../Mobileapp/icon/baseline-https-24px.svg" />
+                            <entry key="width" value="32" />
                           </map>
                         </option>
                       </PersistentState>

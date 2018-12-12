@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 public class Data {
     @SerializedName("time")
     private long time;
-    @SerializedName("value")
-    private float humid;
+    @SerializedName("humidnity")
+    private double humid;
 
     public long getTime() {
         return time;
     }
 
-    public float getHumid() {
+    public double getHumid() {
         return humid;
     }
 }

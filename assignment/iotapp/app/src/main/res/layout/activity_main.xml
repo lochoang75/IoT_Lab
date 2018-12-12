@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Login.MainActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -25,15 +25,21 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:layout_gravity="center_horizontal">
         <EditText
             android:layout_width="350px"
             android:layout_height="75px"
             android:gravity="center_vertical"
             android:hint="Username"
-            android:paddingLeft="50px"
-            android:background="#5735B7" />
+            android:paddingLeft="70px"
+            android:background="#5735B7"/>
+        <ImageView
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="24px"
+            android:background="@drawable/ic_baseline_account_circle_24px"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -48,8 +54,14 @@
             android:gravity="center_vertical"
             android:hint="Password"
             android:maxLines="1"
-            android:paddingLeft="50px"
+            android:paddingLeft="70px"
             android:background="#5735B7"/>
+        <ImageView
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="24px"
+            android:background="@drawable/ic_baseline_https_24px"/>
     </RelativeLayout>
 
     <RelativeLayout

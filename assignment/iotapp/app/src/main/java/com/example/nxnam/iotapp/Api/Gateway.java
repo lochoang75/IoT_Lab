@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Gateway {
-    @SerializedName("IdGateway")
+    @SerializedName("GatewayID")
     private int gatewayId;
-    @SerializedName("Nodes")
+    @SerializedName("GatewayData")
     private ArrayList<Node> nodeData;
 
     public int getGatewayId() {

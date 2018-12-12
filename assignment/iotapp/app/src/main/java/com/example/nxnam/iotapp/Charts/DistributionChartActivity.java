@@ -19,34 +19,33 @@ import com.example.nxnam.iotapp.HomeActivity;
 import com.example.nxnam.iotapp.Login.MainActivity;
 import com.example.nxnam.iotapp.R;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class LineChartActivity extends AppCompatActivity {
-
+public class DistributionChartActivity extends AppCompatActivity {
     private ActionBar actionBar;
-    private DateFormat dateFormat;
+
     private GraphView graphView;
-    private LineGraphSeries<DataPoint> series;
+    BarGraphSeries<DataPoint> series;
     private Intent intent;
     private int gatewayId = HomeActivity.UNDEFINED_ID, nodeId = HomeActivity.UNDEFINED_ID;
     private ApiController apiController;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.line_chart_activity);
-
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#9040E0")));
 
         graphView = findViewById(R.id.graph);
-        dateFormat = new SimpleDateFormat("HH:mm");
+
         intent = getIntent();
         apiController = new ApiController();
 
@@ -70,8 +69,10 @@ public class LineChartActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                display(dataArrayList);
+                double[] distributionData = dataPointProcess(dataArrayList);
+                display(distributionData);
             }
+
             @Override
             public void onFail(Throwable t) {
 
@@ -79,29 +80,55 @@ public class LineChartActivity extends AppCompatActivity {
         });
     }
 
-    private void display(ArrayList<Data> objects) {
-        int dataPointSize = objects.size() > 20 ? 20 : objects.size();
-        int offset = objects.size() > 20 ? objects.size() - 20 : 0;
-        DataPoint[] dataPoints = new DataPoint[dataPointSize];
-        for (int i = 0; i < dataPointSize; i++){
-            dataPoints[i] = new DataPoint(new Date(objects.get(i + offset).getTime() * 1000), objects.get(i + offset).getHumid());
+    private double[] dataPointProcess(ArrayList<Data> dataArrayList) {
+        double[] ret = new double[10];
+        for (int i = 0; i < 10; i++){
+            ret[i] = 0;
+        }
+        for (int i = 0; i < dataArrayList.size(); i++){
+
+            ret[(int)(dataArrayList.get(i).getHumid() / 10) - (int) (dataArrayList.get(i).getHumid() / 100)]++;
+        }
+        for (int i = 0; i < 10; i++){
+            ret[i] = ret[i] /dataArrayList.size() * 100;
+            System.out.print("distrbutionData: " + ret[i] + "\n");
+        }
+        return ret;
+    }
+
+    private void display(double[] distributionData) {
+        DataPoint[] dataPoints = new DataPoint[10];
+
+        for (int i = 0; i < 10; i++){
+            dataPoints[i] = new DataPoint(i + 1, distributionData[i]);
 
         }
-        series = new LineGraphSeries<>(dataPoints);
-        series.setColor(Color.parseColor("#BB6BD9"));
+        series = new BarGraphSeries<>(dataPoints);
         graphView.addSeries(series);
 
-        graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this, dateFormat));
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(6);
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.parseColor("#5735B7");
+            }
+        });
 
-        graphView.getViewport().setMinX(dataPoints[0].getX());
-        graphView.getViewport().setMaxX(dataPoints[0].getX() + 3600000);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(11);
+        series.setSpacing(50);
+
+        series.setDrawValuesOnTop(true);
+        series.setValuesOnTopColor(Color.parseColor("#BB6BD9"));
+
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphView);
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"","0-9", "10-19", "20-29", "30-39", "40-49", "50-59",
+                "60-69", "70-79", "80-89", "90-100", ""});
+        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graphView.getViewport().setMinX(0);
+        graphView.getViewport().setMaxX(11);
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(100);
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);
-
-        graphView.getViewport().setScrollable(true);
     }
 
     @Override
@@ -116,6 +143,11 @@ public class LineChartActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id._linechart:
+                Intent linechartIntent = new Intent(DistributionChartActivity.this, LineChartActivity.class);
+                linechartIntent.putExtra(HomeActivity.Home_GatewayID, gatewayId);
+                linechartIntent.putExtra(HomeActivity.Home_NodeID, nodeId);
+                startActivity(linechartIntent);
+                finish();
                 Toast.makeText(this,"Line Chart",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id._home:
@@ -123,18 +155,13 @@ public class LineChartActivity extends AppCompatActivity {
                 Toast.makeText(this,"Home",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id._districhart:
-                Intent distributionChartIntent = new Intent(LineChartActivity.this, DistributionChartActivity.class);
-                distributionChartIntent.putExtra(HomeActivity.Home_GatewayID, gatewayId);
-                distributionChartIntent.putExtra(HomeActivity.Home_NodeID, nodeId);
-                startActivity(distributionChartIntent);
-                finish();
                 Toast.makeText(this,"Distribution Chart",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id._about:
                 Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id._logout:
-                Intent intent = new Intent(LineChartActivity.this,MainActivity.class);
+                Intent intent = new Intent(DistributionChartActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
