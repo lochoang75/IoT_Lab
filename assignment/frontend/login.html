@@ -8,52 +8,112 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body class="container-fluid no-gutters">
-		 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #666666;">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			     <span class="navbar-toggler-icon"></span>
-		    </button>
-	     	<div class="collapse navbar-collapse" id="navbarNav">
-	    		<ul class="navbar-nav">
-        	 		 <li class="nav-item active">
-         	 			 <a class="nav-link" href="./main.html">Home <span class="sr-only">(current)</span></a>
-      		 		 </li>
-      		 		 <li class="nav-item">
-		    	 		 <a class="nav-link" href="./register.html">Register</a>
-		     		 </li>
-		     		 <li class="nav-item">
-						 <a class="nav-link" href="./login.html">Login</a>
-			 		 </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="./about.html">About</a>
-                     </li>
-		     	</ul>
-  			</div>
-		 	<a class="navbar-brand" href="#">
-				 <img src="./images/user.png" width="30" height="30" alt="userIcon">
-			</a>
-		</nav>  
+		 <?php
+	  		require_once "header.php";
+	  	 ?> 
 		<div class="container-fluid no-gutters">
-			<div class="d-flex justify-content-center align-items-center row no-gutters" style="height: 400px;">
+			<div class="d-flex justify-content-center align-items-center row no-gutters mt-5 mb-2">
 				<form>
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email address</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+						<label for="exampleInputEmail1">Username</label>
+					    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
+						<small id="username_err" style="color: red;"></small>
 					</div>
 					<div class="form-group">
 				   		<label for="exampleInputPassword1">Password</label>
-				    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				    	<input type="password" class="form-control" id="password" placeholder="Password">
+						<small id="password_err" style="color: red;"></small>
 					</div>
-					<div class="d-flex justify-content-center align-items-center">
-					<button type="submit" class="btn btn-primary mx-auto">Login</button>
-					</div>
-					<p><a href="#">Sign Up </a> or <a href="#">Login</a> with BKU e-mail </p> 
 				</form>
 			</div>
+			<div class="d-flex justify-content-center align-items-center">
+					<button class="btn btn-primary mx-auto" onclick="validateInput()">Login</button>
+			</div>
+					<p class="d-flex justify-content-center align-items-center"><a href="#">Sign Up </a> &nbsp or &nbsp <a href="#">Login</a> &nbsp with BKU e-mail </p>
+				
 		</div>
 
 	<script src="./bootstrap/js/jquery-3.3.1.slim.min.js"></script>
 	<script src="./bootstrap/js/popper.min.js"></script>
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
-	<script src="./js/weatherForecast.js"></script>
+	<script src="./js/jquery-3.3.1.min.js"></script>
+	<script>
+	/* account object */
+	var account =  {
+		action: "",
+		username: "",
+		password: "",
+		email:""
+	}
+
+	/* request to Server */
+	function requestToServer(callback)
+	{
+		$.ajax({
+			method: "post",
+			url: "../backend/login.php",
+			data: account,
+			success: function(result) {
+				console.log(result);
+				var action = JSON.parse(result);
+				callback(action);
+			},
+		})
+	}
+
+	/* Login request */
+	function SendLogin(result)
+	{
+		if (result.success.trim() === "success".trim() )
+		{
+			location.replace("main.html");
+			document.cookie = "user="+$("#username").val();
+		}
+	
+		if (result.success.trim() === "incorrect".trim())
+		{
+			$("#password_err").html("Incorrect password");
+		}
+	
+		if (result.success.trim() === "invalid".trim())
+		{
+			$("#username_err").html("Invalid account");
+			$("#inputPassword").html('');
+		}
+	}
+
+	/* input login validate */
+	function validateInput() 
+	{
+		var success = true;
+		if ($("#username").val().trim() == '')
+		{
+			$("#username_err").html("Please fill this");
+			success = false;
+		}	
+
+		if ($("#password").val().trim() =='')
+		{
+			$("#password_err").html("Please fill this");
+			success = false;
+		}
+	
+		if (success)
+		{
+			account.username = $("#username").val().trim();
+			account.password = $("#password").val().trim();
+			account.action = "login";
+			requestToServer(SendLogin);
+		}
+	}
+
+/* logout */
+function logout()
+{
+	document.cookie = 'user=;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+	location.reload();
+}
+
+	</script>
 </body>
 </html>

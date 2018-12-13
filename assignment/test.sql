@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th12 09, 2018 lúc 04:26 AM
+-- Thời gian đã tạo: Th12 13, 2018 lúc 12:37 PM
 -- Phiên bản máy phục vụ: 10.1.34-MariaDB
 -- Phiên bản PHP: 5.6.37
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Data` (
   `GatewayID` int(10) NOT NULL,
   `ID` int(10) NOT NULL,
-  `Value` int(10) NOT NULL,
+  `Value` float NOT NULL,
   `Time` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -113,7 +113,8 @@ INSERT INTO `Data` (`GatewayID`, `ID`, `Value`, `Time`) VALUES
 (0, 2, 20, 1544032312),
 (0, 2, 20, 1544032912),
 (0, 2, 20, 1544033512),
-(0, 2, 20, 1544034112);
+(0, 2, 20, 1544034112),
+(1, 2, 65, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -123,8 +124,16 @@ INSERT INTO `Data` (`GatewayID`, `ID`, `Value`, `Time`) VALUES
 
 CREATE TABLE `User` (
   `Username` char(255) NOT NULL,
-  `Password` char(255) NOT NULL
+  `Password` char(255) NOT NULL,
+  `Email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `User`
+--
+
+INSERT INTO `User` (`Username`, `Password`, `Email`) VALUES
+('lochoang', '12345', 'lochoang75@gmail.com');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
