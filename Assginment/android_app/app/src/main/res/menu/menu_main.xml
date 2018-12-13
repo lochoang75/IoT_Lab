@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HomeActivity">
+
+    <group android:id="@+id/group_setting">
+        <item android:id="@+id/_home"
+            android:title="Home"/>
+        <item android:id="@+id/_linechart"
+            android:title="Line Chart" />
+        <item android:id="@+id/_districhart"
+            android:title="Distribution Chart"/>
+        <item android:id="@+id/_logout"
+            android:title="Log out" />
+        <item android:id="@+id/_about"
+            android:title="About"   />
+    </group>
+
+</menu>
