@@ -47,7 +47,7 @@ function updateData (Gatewaylist)
 	{
 		/* Each gateway is a option in select element */
 		let GatewayID = Gatewaylist.Gateways[i].GatewayID;
-		selText += "<option value='" + GatewayID + "'> Gateway " + GatewayID +"</option>"; 
+		selText += "<option value='" + GatewayID + "''> Gateway " + GatewayID +"</option>"; 
 
 		if ( typeof selectedGateway !== 'undefined' && selectedGateway == GatewayID )
 		{
@@ -58,7 +58,7 @@ function updateData (Gatewaylist)
 			{
 				$(".sensor:eq(" + SensorList[j].NodeID +")").prop('disabled', false);
 				$(".checkbox > label:eq(" + SensorList[j].NodeID +")").css('color', 'Black');
-
+				$(".sensor:eq(" + SensorList[j].NodeID +")").toggle(updateChart());
 			}
 		}
 	}
