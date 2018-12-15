@@ -1,7 +1,7 @@
 function requestServer(callback)
 {
 	$.ajax({
-			url: "http://localhost/backend/json.php",
+			url: "../backend/json.php",
 			method: "get",
 			success: function (result){
 				console.log(result);
@@ -58,7 +58,6 @@ function updateData (Gatewaylist)
 			{
 				$(".sensor:eq(" + SensorList[j].NodeID +")").prop('disabled', false);
 				$(".checkbox > label:eq(" + SensorList[j].NodeID +")").css('color', 'Black');
-				$(".sensor:eq(" + SensorList[j].NodeID +")").toggle(updateChart());
 			}
 		}
 	}
@@ -99,6 +98,7 @@ var updateChart = function (Gatewaylist) {
 
 	/* Sensor data */
 	var GatewayData; 
+	console.log(Gatewaylist.Gateways);
 	for (var i = 0 ; i < Gatewaylist.Gateways.length; i++)
 	{
 		if (Gatewaylist.Gateways[i].GatewayID == selectedGateway)
@@ -139,7 +139,9 @@ var updateChart = function (Gatewaylist) {
 					type: "line",
 					showInLegend: true,
 					xValueType: "dateTime",
-					legendText: "Sensor " + sensor,
+					intervalType: "minutes",
+					valueFormatString:"hh:mm:",
+					legendText:"Sensor " + sensor,
 					dataPoints: sensorDPS	
 				};
 			chart.options.data.push(newSeries);
@@ -151,19 +153,22 @@ var updateChart = function (Gatewaylist) {
 
 window.onload = function () {
 	chart = new CanvasJS.Chart("chartContainer", {
+	zoomEnabled: true,
 	title :{
 				text: "Gateway Data"
 	},
 	axisY: {
 				includeZero: false,
 				title: "Humidinity",
-				suffix: "%"
+				suffix: "%",
+				minimum: 0,
+				maximum: 100
 	},      
 	data: dps 
 });
 	requestServer(updateData);
    	requestServer(updateChart);
-	setInterval(function(){ requestServer(updateData); requestServer(updateChart); }, 3000);
+//	setInterval(function(){ requestServer(updateData); requestServer(updateChart); }, 3000);
 }
 
 

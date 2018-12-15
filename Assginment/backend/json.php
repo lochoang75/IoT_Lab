@@ -2,6 +2,11 @@
 
 header('Content-Type: aplication/json');
 
+/* Set time zone */
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+$today_midnight = strtotime(date("Ymd"));
+$tomorrow_midnight = strtotime(date("Ymd", strtotime("+1 day"))); 
+
 /* Record for humidnity and time*/
 class Record {
 	/* Attribute */
@@ -134,12 +139,19 @@ if (mysqli_connect_errno($con))
 
 	$result = mysqli_query($con,$sql);
 
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		$GatewayID = $row["GatewayID"];
 		$SensorID = $row["ID"];
 		$Time = $row["Time"];
 		$Humid = $row["Value"];
+
+		/* Get only data for today */
+		if (intval($Time) < $today_midnight || intval($Time) > $tomorrow_midnight)
+		{
+			continue;
+		}
 
 		$Record = new Record($Time, $Humid);
 
@@ -189,6 +201,7 @@ if (mysqli_connect_errno($con))
 	echo json_encode($json, JSON_NUMERIC_CHECK);
 
 }
+
 
 mysqli_close($con);
 ?>
