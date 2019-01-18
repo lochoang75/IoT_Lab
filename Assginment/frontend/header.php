@@ -9,24 +9,27 @@
 					 {
 						 echo'
         	 		 	<li class="nav-item active">
-         	 				 <a class="nav-link" href="./main.html">Home <span class="sr-only">(current)</span></a>
+         	 				 <a class="nav-link" href="./main.html">Home</a>
 						</li>
 						<li class="nav-item">
 							 <a class="nav-link" href="#" onclick="document.cookie = \'user\' + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\'; location.reload()" >Logout</a>
-			 			</li>';
+			 			</li>
+      		 			<li class="nav-item">
+		    	 		 	<a class="nav-link disabled">Register</a>
+		     			</li>';
 					 } else {
 						 echo'
 						<li class="nav-item">
-         	 				 <a class="nav-link disabled">Home <span class="sr-only">(current)</span></a>
+         	 				 <a class="nav-link disabled">Home</a>
 						</li>
 						<li class="nav-item">
 							 <a class="nav-link" href="./login.html">Login</a>
-			 			</li>';
+			 			</li>
+      		 		 	<li class="nav-item">
+		    	 		 	<a class="nav-link" href="./register.html">Register</a>
+		     		 	</li>';
 					 }
 					 ?>
-      		 		 <li class="nav-item">
-		    	 		 <a class="nav-link" href="./register.html">Register</a>
-		     		 </li>
 		     		 
                      <li class="nav-item">
                          <a class="nav-link" href="./about.html">About</a>

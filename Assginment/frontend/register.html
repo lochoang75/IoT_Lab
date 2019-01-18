@@ -131,9 +131,19 @@
 		return success;
 	}
 
-	function registerCallback()
+	function registerCallback(result)
 	{
-		console.log('done');
+		// If success redirect to main page
+		if (result.success.trim() === "success".trim()) 
+		{
+			alert("Success");
+			document.cookie = "user="+$("#Username").val();
+			location.replace("main.html")
+		}
+		else{
+			// if fail alert error
+			alert("Fail: " + result.optionalData +" already exists");
+		}
 	}
 
 	/* Client validate anh send register */
@@ -143,6 +153,12 @@
 		let password = $("#Password").val().trim();
 		let re_type = $("#Retype").val().trim();
 		let email = $("#Email").val().trim();
+
+		/* Clear old input error*/
+		$("#username_err").html('').css("color",'red');
+		$("#password_err").html('').css("color", 'red');
+		$("#retype_err").html('').css("color", 'red');
+		$("#email_err").html('').css("color", 'red');
 		
 		/*client validate */
 		if (!ValidateAccount(username))
